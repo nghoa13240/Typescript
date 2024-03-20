@@ -1,28 +1,21 @@
-import { Link } from "react-router-dom";
+'use client'
 
-export const Header = () => {
+import { Navbar } from 'flowbite-react'
+
+function Component() {
   return (
-    <ul>
-      <li>
-        <Link to="/" className="nav-link">
+    <Navbar fluid>
+      <Navbar.Collapse>
+        <Navbar.Link href='#' active>
           Home
-        </Link>
-      </li>
-      <li>
-        <Link to="/shop" className="nav-link">
-          Shop
-        </Link>
-      </li>
-      <li>
-        <Link to="/login" className="nav-link">
-          Login
-        </Link>
-      </li>
-      <li>
-        <Link to="/register" className="nav-link">
-          Register
-        </Link>
-      </li>
-    </ul>
-  );
-};
+        </Navbar.Link>
+        <Navbar.Link href='#'>About</Navbar.Link>
+        <Navbar.Link href='#'>Services</Navbar.Link>
+        <Navbar.Link href='#'>Pricing</Navbar.Link>
+        <Navbar.Link href='#'>Contact</Navbar.Link>
+      </Navbar.Collapse>
+    </Navbar>
+  )
+}
+
+export default Component
