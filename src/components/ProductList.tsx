@@ -1,49 +1,62 @@
-import instance from '@/apis'
+'use client'
+
 import { TProduct } from '@/interfaces/TProduct'
+import { Table } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 
-const ProductList = () => {
-  // ! Dump component va smart component
+function Component() {
   const [products, setProducts] = useState<TProduct[]>([])
   useEffect(() => {
-    // Cach 2:
-    const getProducts = async () => {
-      try {
-        const { data } = await instance.get('/products')
-        console.log(data)
-        setProducts(data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getProducts()
-    // ! nâng cao.
-    return () => {
-      // ! Cleanup function
-    }
+    fetch(`http://localhost:3000/products`)
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
   }, [])
-
-  /**
-   * ! DependencyList
-   * ? TH1: Không có DependencyList - cứ có thay đổi thì render lại.
-   * ? TH2: [] - Empty Array - Chỉ chạy một lần khi componentDidMount
-   * ? TH3: [state1, state2,...] - Chạy lại khi 1 trong số các state được liệt kê có sự thay đổi.
-   */
-
-  // ! DependencyList = Danh sách phụ thuộc
   return (
-    <div>
-      <h1>Product List</h1>
-      {products.map((product) => (
-        <div key={product.id}>
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <p>{product.price}</p>
-          <img width={100} src={product.thumbnail} alt={product.title} />
-        </div>
-      ))}
+    <div className='overflow-x-auto'>
+      <Table striped>
+        <Table.Head>
+          <Table.HeadCell>ID</Table.HeadCell>
+          <Table.HeadCell>TITLE</Table.HeadCell>
+          <Table.HeadCell>DESC</Table.HeadCell>
+          <Table.HeadCell>PRICE</Table.HeadCell>
+          <Table.HeadCell>DISCOUNTPERCENTAGE</Table.HeadCell>
+          <Table.HeadCell>RATING</Table.HeadCell>
+          <Table.HeadCell>STOCK</Table.HeadCell>
+          <Table.HeadCell>BRAND</Table.HeadCell>
+          <Table.HeadCell>CATEGORY</Table.HeadCell>
+          <Table.HeadCell>THUMBNAIL</Table.HeadCell>
+          <Table.HeadCell>IMAGE</Table.HeadCell>
+          <Table.HeadCell>
+            <span className='sr-only'>Edit</span>
+          </Table.HeadCell>
+        </Table.Head>
+        {products.map((e) => (
+          <Table.Body className='divide-y'>
+            <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+              <Table.Cell>{e.id}</Table.Cell>
+              <Table.Cell className=' font-medium text-gray-900 dark:text-white'>{e.title}</Table.Cell>
+              <Table.Cell>{e.description}</Table.Cell>
+              <Table.Cell>{e.price}</Table.Cell>
+              <Table.Cell>{e.discountPercentage}</Table.Cell>
+              <Table.Cell>{e.rating}</Table.Cell>
+              <Table.Cell>{e.stock}</Table.Cell>
+              <Table.Cell>{e.brand}</Table.Cell>
+              <Table.Cell>{e.category}</Table.Cell>
+              <Table.Cell>{e.thumbnail}</Table.Cell>
+              <Table.Cell>
+                <img src={e.thumbnail} />
+              </Table.Cell>
+              <Table.Cell>
+                <a href='#' className='font-medium text-cyan-600 hover:underline dark:text-cyan-500'>
+                  Edit
+                </a>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        ))}
+      </Table>
     </div>
   )
 }
 
-export default ProductList
+export default Component

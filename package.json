@@ -13,14 +13,18 @@
     "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss)\""
   },
   "dependencies": {
+    "autoprefixer": "^10.4.18",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "concurrently": "^8.2.2",
+    "flowbite-react": "^0.7.3",
     "json-server": "^0.17.0",
+    "postcss": "^8.4.37",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
