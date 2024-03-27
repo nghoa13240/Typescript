@@ -8,7 +8,8 @@ const Home = (props: Props) => {
   return (
     <div>
       <Banner />
-      <h2>Danh sach san pham:</h2>
+      <h2></h2>
+
       <ProductList />
     </div>
   )

@@ -1,21 +1,19 @@
 'use client'
-
+import { NavLink } from 'react-router-dom'
 import { Navbar } from 'flowbite-react'
 
-function Component() {
+function Header() {
   return (
-    <Navbar fluid>
+    <Navbar fluid rounded>
+      <Navbar.Toggle />
       <Navbar.Collapse>
-        <Navbar.Link href='#' active>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href='#'>About</Navbar.Link>
-        <Navbar.Link href='#'>Services</Navbar.Link>
-        <Navbar.Link href='#'>Pricing</Navbar.Link>
-        <Navbar.Link href='#'>Contact</Navbar.Link>
+        <NavLink to='/'>Home</NavLink>
+        <NavLink to='/about'>About</NavLink>
+        <NavLink to='/admin'>Admin</NavLink>
+        <NavLink to='/login'>Login</NavLink>
       </Navbar.Collapse>
     </Navbar>
   )
 }
 
-export default Component
+export default Header

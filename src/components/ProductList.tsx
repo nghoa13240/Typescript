@@ -1,62 +1,94 @@
 'use client'
 
-import { TProduct } from '@/interfaces/TProduct'
-import { Table } from 'flowbite-react'
+import { Card } from 'flowbite-react'
 import { useEffect, useState } from 'react'
-
+import { TProducts } from '../interfaces/TProduct'
+import { useNavigate } from 'react-router-dom'
 function Component() {
-  const [products, setProducts] = useState<TProduct[]>([])
+  const navigate = useNavigate()
+  const [products, setProducts] = useState<TProducts[]>([])
   useEffect(() => {
-    fetch(`http://localhost:3000/products`)
+    fetch(` http://localhost:3000/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
   }, [])
   return (
-    <div className='overflow-x-auto'>
-      <Table striped>
-        <Table.Head>
-          <Table.HeadCell>ID</Table.HeadCell>
-          <Table.HeadCell>TITLE</Table.HeadCell>
-          <Table.HeadCell>DESC</Table.HeadCell>
-          <Table.HeadCell>PRICE</Table.HeadCell>
-          <Table.HeadCell>DISCOUNTPERCENTAGE</Table.HeadCell>
-          <Table.HeadCell>RATING</Table.HeadCell>
-          <Table.HeadCell>STOCK</Table.HeadCell>
-          <Table.HeadCell>BRAND</Table.HeadCell>
-          <Table.HeadCell>CATEGORY</Table.HeadCell>
-          <Table.HeadCell>THUMBNAIL</Table.HeadCell>
-          <Table.HeadCell>IMAGE</Table.HeadCell>
-          <Table.HeadCell>
-            <span className='sr-only'>Edit</span>
-          </Table.HeadCell>
-        </Table.Head>
-        {products.map((e) => (
-          <Table.Body className='divide-y'>
-            <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-              <Table.Cell>{e.id}</Table.Cell>
-              <Table.Cell className=' font-medium text-gray-900 dark:text-white'>{e.title}</Table.Cell>
-              <Table.Cell>{e.description}</Table.Cell>
-              <Table.Cell>{e.price}</Table.Cell>
-              <Table.Cell>{e.discountPercentage}</Table.Cell>
-              <Table.Cell>{e.rating}</Table.Cell>
-              <Table.Cell>{e.stock}</Table.Cell>
-              <Table.Cell>{e.brand}</Table.Cell>
-              <Table.Cell>{e.category}</Table.Cell>
-              <Table.Cell>{e.thumbnail}</Table.Cell>
-              <Table.Cell>
-                <img src={e.thumbnail} />
-              </Table.Cell>
-              <Table.Cell>
-                <a href='#' className='font-medium text-cyan-600 hover:underline dark:text-cyan-500'>
-                  Edit
-                </a>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        ))}
-      </Table>
+    <div id='list' className='flex flex-wrap gap-10 justify-center my-10'>
+      {products.map((e) => {
+        return (
+          <Card
+            onClick={() => {
+              navigate(`/shop/${e.id}`)
+            }}
+            key={e.id}
+            className='max-w-sm'
+            imgAlt='Apple Watch Series 7 in colors pink, silver, and black'
+            imgSrc={e.thumbnail}
+          >
+            <a href='#'>
+              <h5 className='text-xl font-semibold tracking-tight text-gray-900 dark:text-white'>{e.title}</h5>
+            </a>
+            <a href='#'>
+              <h5 className='font-semibold text-gray-900 dark:text-white'>{e.description}</h5>
+            </a>
+            <div className='mb-5 mt-2.5 flex items-center'>
+              <svg
+                className='h-5 w-5 text-yellow-300'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
+              </svg>
+              <svg
+                className='h-5 w-5 text-yellow-300'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
+              </svg>
+              <svg
+                className='h-5 w-5 text-yellow-300'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
+              </svg>
+              <svg
+                className='h-5 w-5 text-yellow-300'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
+              </svg>
+              <svg
+                className='h-5 w-5 text-yellow-300'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
+              </svg>
+              <span className='ml-3 mr-2 rounded bg-cyan-100 px-2.5 py-0.5 text-xs font-semibold text-cyan-800 dark:bg-cyan-200 dark:text-cyan-800'>
+                5.0
+              </span>
+            </div>
+            <div className='flex items-center justify-between'>
+              <span className='text-3xl font-bold text-gray-900 dark:text-white'>${e.price}</span>
+              <a
+                href='#'
+                className='rounded-lg bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800'
+              >
+                Add to cart
+              </a>
+            </div>
+          </Card>
+        )
+      })}
     </div>
   )
 }
-
 export default Component

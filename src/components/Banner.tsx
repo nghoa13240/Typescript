@@ -1,7 +1,7 @@
 const Banner = () => {
   return (
     <div>
-      <h2>Day la cai banner</h2>
+      <h2></h2>
     </div>
   )
 }
