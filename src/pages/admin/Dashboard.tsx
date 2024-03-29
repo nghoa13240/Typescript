@@ -4,6 +4,7 @@
 import { TProduct } from '@/interfaces/TProduct'
 import { Table } from 'flowbite-react'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function Component() {
   const [products, setProducts] = useState<TProduct[]>([])
@@ -14,6 +15,10 @@ function Component() {
   }, [])
   return (
     <div className='overflow-x-auto'>
+      <h2>Hello, Admin</h2>
+      <Link className='btn btn-primary' to='/admin/add'>
+        Add new Product
+      </Link>
       <Table striped>
         <Table.Head>
           <Table.HeadCell>ID</Table.HeadCell>
@@ -51,6 +56,7 @@ function Component() {
                 <a href='#' className='font-medium text-cyan-600 hover:underline dark:text-cyan-500'>
                   Edit
                 </a>
+                <button className='btn btn-warning'>Delete</button>
               </Table.Cell>
             </Table.Row>
           </Table.Body>
