@@ -3,7 +3,8 @@ import './index.css'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Home from './pages/Home'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import Login from './pages/Login'
@@ -11,8 +12,27 @@ import ProductDetail from './pages/ProductDetail'
 import Dashboard from './pages/admin/Dashboard'
 import About from './pages/About'
 import ProductAdd from './pages/admin/ProductAdd'
+import { TProduct } from './interfaces/TProduct'
+import { createProduct, getProducts } from './apis/product'
 import Banner from './components/Banner'
 function App() {
+  const [products, setProducts] = useState<TProduct[]>([])
+  const navigate = useNavigate()
+  useEffect(() => {
+    ;(async () => {
+      const data = await getProducts()
+      setProducts(data)
+    })()
+  }, [])
+  console.log(products)
+  const handleAdd = (product: TProduct) => {
+    ;(async () => {
+      const data = await createProduct(product)
+      // setProducts((prev) => [...prev, data])
+      setProducts([...products, data])
+      navigate('/admin')
+    })()
+  }
   return (
     <>
       <Header />
@@ -23,11 +43,10 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/admin' element={<Dashboard />} />
-        <Route path='/admin/add' element={<ProductAdd />} />
+        <Route path='/admin/add' element={<ProductAdd onAdd={handleAdd} />} />
         <Route path='/about' element={<About />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-
       <Footer />
     </>
   )

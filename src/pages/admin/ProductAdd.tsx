@@ -1,13 +1,13 @@
 // ProductAdd.tsx
 import { TProduct } from '@/interfaces/TProduct'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import './ProductAdd.css' // Import CSS
+import './ProductAdd.css'
 
 type Props = {
   onAdd: (product: TProduct) => void
 }
 
-const ProductAdd = ({ onAdd }: Props) => {
+const ProductAdd: React.FC<Props> = ({ onAdd }) => {
   const {
     register,
     handleSubmit,
@@ -21,48 +21,48 @@ const ProductAdd = ({ onAdd }: Props) => {
 
   return (
     <div className='container mt-4'>
-      <h2>Add Product</h2>
+      <h2>Thêm sản phẩm</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='form'>
         <div className='form-group'>
           <label htmlFor='title' className='form-label'>
-            Title
+            Tiêu đề
           </label>
           <input
             type='text'
             className={`form-control ${errors.title ? 'is-invalid' : ''}`}
             id='title'
-            placeholder='Title'
+            placeholder='Tiêu đề'
             {...register('title', { required: true })}
           />
-          {errors.title && <div className='invalid-feedback'>This field is required</div>}
+          {errors.title && <div className='invalid-feedback'>Trường này là bắt buộc</div>}
         </div>
         <div className='form-group'>
           <label htmlFor='price' className='form-label'>
-            Price
+            Giá
           </label>
           <input
             type='number'
             className={`form-control ${errors.price ? 'is-invalid' : ''}`}
             id='price'
-            placeholder='Price'
+            placeholder='Giá'
             {...register('price', { required: true })}
           />
-          {errors.price && <div className='invalid-feedback'>This field is required</div>}
+          {errors.price && <div className='invalid-feedback'>Trường này là bắt buộc</div>}
         </div>
         <div className='form-group'>
           <label htmlFor='description' className='form-label'>
-            Description
+            Mô tả
           </label>
           <input
             type='text'
             className='form-control'
             id='description'
-            placeholder='Description'
+            placeholder='Mô tả'
             {...register('description')}
           />
         </div>
         <button type='submit' className='btn btn-primary'>
-          Submit
+          Gửi
         </button>
       </form>
     </div>
