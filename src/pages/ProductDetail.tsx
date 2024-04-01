@@ -22,7 +22,7 @@ const ProductDetail = (props: Props) => {
       <img src={product?.thumbnail} alt={product?.title} />
       <div>{product?.price}</div>
       <div>{product?.description}</div>
-      <div>Con lai: {product?.stock}</div>
+      <div>Còn lại: {product?.stock}</div>
       <div>Rating: {product?.rating}</div>
     </div>
   )

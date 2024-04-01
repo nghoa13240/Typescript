@@ -37,11 +37,9 @@ h2 {
 .btn-primary {
   background-color: #41c9e2; /* Màu nền */
   color: #fff;
-  border: none; /* Loại bỏ viền */
-  padding: 10px 20px; /* Kích thước nút */
+  padding: 10px 30px; /* Kích thước nút */
   border-radius: 4px;
-  cursor: pointer; /* Con trỏ chuột */
-  font-size: 16px; /* Kích thước font */
+  font-size: 30px; /* Kích thước font */
   transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
 }
 .btn-primary:hover {

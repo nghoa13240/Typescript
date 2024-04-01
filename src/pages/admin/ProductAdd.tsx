@@ -1,4 +1,3 @@
-// ProductAdd.tsx
 import { TProduct } from '@/interfaces/TProduct'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import './ProductAdd.css'
