@@ -14,7 +14,9 @@ import About from './pages/About'
 import ProductAdd from './pages/admin/ProductAdd'
 import { TProduct } from './interfaces/TProduct'
 import { createProduct, getProducts } from './apis/product'
+import ProductEdit from './pages/admin/ProductEdit'
 import Banner from './components/Banner'
+import instance from './apis'
 function App() {
   const [products, setProducts] = useState<TProduct[]>([])
   const navigate = useNavigate()
@@ -25,11 +27,20 @@ function App() {
     })()
   }, [])
   console.log(products)
+
   const handleAdd = (product: TProduct) => {
     ;(async () => {
       const data = await createProduct(product)
       // setProducts((prev) => [...prev, data])
       setProducts([...products, data])
+      navigate('/admin')
+    })()
+  }
+
+  const handleEdit = (product: TProduct) => {
+    ;(async () => {
+      const { data } = await instance.put(`/products/${product.id}`, product)
+      setProducts(products.map((item) => (item.id === data.id ? data : item)))
       navigate('/admin')
     })()
   }
@@ -44,6 +55,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/admin' element={<Dashboard />} />
         <Route path='/admin/add' element={<ProductAdd onAdd={handleAdd} />} />
+        <Route path='/admin/edit/:id' element={<ProductEdit onEdit={handleEdit} />} />
         <Route path='/about' element={<About />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

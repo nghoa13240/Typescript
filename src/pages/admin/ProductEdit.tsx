@@ -1,68 +1,88 @@
+import instance from '@/apis'
 import { TProduct } from '@/interfaces/TProduct'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Joi from 'joi'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 
 type Props = {
-  onAdd: (product: TProduct) => void
+  onEdit: (product: TProduct) => void
 }
 
-const schemaProduct = Joi.object({
-  title: Joi.string().required().min(3).max(255),
+const productSchema = Joi.object({
+  title: Joi.string().required().min(3),
   price: Joi.number().required().min(0),
-  description: Joi.string().allow('')
+  description: Joi.string().allow(null, '')
 })
 
-const ProductEdit = ({ onAdd }: Props) => {
+const ProductEdit = ({ onEdit }: Props) => {
+  const { id } = useParams()
+  const [product, setProduct] = useState<TProduct | null>(null)
+
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<TProduct>({
-    resolver: joiResolver(schemaProduct)
+    resolver: joiResolver(productSchema)
   })
-  const onSubmit: SubmitHandler<TProduct> = (data) => {
-    console.log(data)
-    onAdd(data)
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const { data } = await instance.get(`/products/${id}`)
+        setProduct(data)
+      } catch (error) {
+        console.error('Error fetching product:', error)
+      }
+    }
+
+    if (id) {
+      fetchProduct()
+    }
+  }, [id])
+
+  const onSubmit = (product: TProduct) => {
+    onEdit({ ...product, id })
   }
+  // if(!product) {
+  //   return <div>Loading...</div>
+  // }
   return (
-    <div className='container'>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h1>Update product</h1>
         <div className='form-group'>
           <label htmlFor='title'>Title</label>
           <input
-            type='text'
             className='form-control'
-            id='title'
-            placeholder='Title'
+            type='text'
             {...register('title', { required: true, minLength: 3, maxLength: 255 })}
+            defaultValue={product?.title}
           />
-          {errors.title && <span className='text-danger'>{errors.title.message}</span>}
+          {errors.title && <div className='text-danger'>{errors.title.message}</div>}
         </div>
         <div className='form-group'>
-          <label htmlFor='price'>Price</label>
+          <label htmlFor='price'>Title</label>
           <input
-            type='number'
             className='form-control'
-            id='price'
-            placeholder='Price'
-            {...register('price', { required: true, min: 0 })}
+            type='number'
+            {...register('price', { required: true, minLength: 3, maxLength: 255 })}
+            defaultValue={product?.price}
           />
-          {errors.price && <span className='text-danger'>{errors.price.message}</span>}
+          {errors.price && <div className='text-danger'>{errors.price.message}</div>}
         </div>
         <div className='form-group'>
           <label htmlFor='description'>Description</label>
           <input
-            type='text'
             className='form-control'
-            id='description'
-            placeholder='Description'
+            type='text'
             {...register('description')}
+            defaultValue={product?.description}
           />
         </div>
-        <button type='submit' className='btn btn-primary w-100'>
-          Submit
-        </button>
+        <button className='btn btn-primary w-100'>Submit</button>
       </form>
     </div>
   )

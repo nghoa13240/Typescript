@@ -21,11 +21,11 @@ const ProductAdd: React.FC<Props> = ({ onAdd }) => {
 
   return (
     <div className='container mt-4'>
-      <h2>Thêm sản phẩm</h2>
+      <h2>Add Product</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='form'>
         <div className='form-group'>
           <label htmlFor='title' className='form-label'>
-            Tiêu đề
+            Title
           </label>
           <input
             type='text'
@@ -38,7 +38,7 @@ const ProductAdd: React.FC<Props> = ({ onAdd }) => {
         </div>
         <div className='form-group'>
           <label htmlFor='price' className='form-label'>
-            Giá
+            Price
           </label>
           <input
             type='number'
@@ -51,7 +51,7 @@ const ProductAdd: React.FC<Props> = ({ onAdd }) => {
         </div>
         <div className='form-group'>
           <label htmlFor='description' className='form-label'>
-            Mô tả
+            Description
           </label>
           <input
             type='text'

@@ -25,9 +25,6 @@ function Component() {
           <Table.HeadCell>TITLE</Table.HeadCell>
           <Table.HeadCell>DESC</Table.HeadCell>
           <Table.HeadCell>PRICE</Table.HeadCell>
-          <Table.HeadCell>DISCOUNTPERCENTAGE</Table.HeadCell>
-          <Table.HeadCell>RATING</Table.HeadCell>
-          <Table.HeadCell>STOCK</Table.HeadCell>
           <Table.HeadCell>BRAND</Table.HeadCell>
           <Table.HeadCell>CATEGORY</Table.HeadCell>
           <Table.HeadCell>THUMBNAIL</Table.HeadCell>
@@ -43,9 +40,6 @@ function Component() {
               <Table.Cell className=' font-medium text-gray-900 dark:text-white'>{e.title}</Table.Cell>
               <Table.Cell>{e.description}</Table.Cell>
               <Table.Cell>{e.price}</Table.Cell>
-              <Table.Cell>{e.discountPercentage}</Table.Cell>
-              <Table.Cell>{e.rating}</Table.Cell>
-              <Table.Cell>{e.stock}</Table.Cell>
               <Table.Cell>{e.brand}</Table.Cell>
               <Table.Cell>{e.category}</Table.Cell>
               <Table.Cell>{e.thumbnail}</Table.Cell>
@@ -53,10 +47,9 @@ function Component() {
                 <img src={e.thumbnail} />
               </Table.Cell>
               <Table.Cell>
-                <a href='#' className='font-medium text-cyan-600 hover:underline dark:text-cyan-500'>
-                  Edit
-                </a>
-                <button className='btn btn-warning'>Delete</button>
+                <Link to={`/admin/edit/${e.id}`} className='btn btn-danger'>
+                  Update
+                </Link>{' '}
               </Table.Cell>
             </Table.Row>
           </Table.Body>
