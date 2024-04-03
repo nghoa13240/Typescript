@@ -28,3 +28,11 @@ export const createProduct = async (product: TProduct) => {
     console.log(error)
   }
 }
+
+export const deleteProduct = async (productId: number) => {
+  try {
+    await instance.delete(`/products/${productId}`)
+  } catch (error) {
+    console.log(error)
+  }
+}

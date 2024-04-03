@@ -3,6 +3,8 @@ import { TProduct } from '@/interfaces/TProduct'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+//import './ProductDetail.css' // Import CSS file
+
 type Props = {}
 
 const ProductDetail = (props: Props) => {
@@ -15,15 +17,40 @@ const ProductDetail = (props: Props) => {
     }
     getProduct()
   }, [])
+
   return (
-    <div>
-      {/* <h2>Chi tiet san pham có id la {params.id}</h2> */}
-      <h2>{product?.title}</h2>
-      <img src={product?.thumbnail} alt={product?.title} />
-      <div>{product?.price}</div>
-      <div>{product?.description}</div>
-      <div>Còn lại: {product?.stock}</div>
-      <div>Rating: {product?.rating}</div>
+    <div className='product-detail'>
+      <h2>Chi tiết sản phẩm</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>Title:</th>
+            <td>{product?.title}</td>
+          </tr>
+          <tr>
+            <th>Thumbnail:</th>
+            <td>
+              <img src={product?.thumbnail} alt={product?.title} />
+            </td>
+          </tr>
+          <tr>
+            <th>Price:</th>
+            <td>{product?.price}</td>
+          </tr>
+          <tr>
+            <th>Description:</th>
+            <td>{product?.description}</td>
+          </tr>
+          <tr>
+            <th>Stock:</th>
+            <td>{product?.stock}</td>
+          </tr>
+          <tr>
+            <th>Rating:</th>
+            <td>{product?.rating}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }

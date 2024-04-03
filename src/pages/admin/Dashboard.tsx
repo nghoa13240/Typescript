@@ -12,6 +12,20 @@ function Component() {
       .then((res) => res.json())
       .then((data) => setProducts(data))
   }, [])
+
+  const handleDelete = (productId: number) => {
+    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa sản phẩm không?')
+    if (confirmDelete) {
+      fetch(`http://localhost:3000/products/${productId}`, {
+        method: 'DELETE'
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts(products.filter((product) => product.id !== productId))
+        })
+        .catch((error) => console.error('Error deleting product:', error))
+    }
+  }
   return (
     <div className='overflow-x-auto'>
       <h2>Hello, Admin</h2>
@@ -26,6 +40,7 @@ function Component() {
           <Table.HeadCell>PRICE</Table.HeadCell>
           <Table.HeadCell>THUMBNAIL</Table.HeadCell>
           <Table.HeadCell>IMAGE</Table.HeadCell>
+          <Table.HeadCell>HÀNH ĐỘNG</Table.HeadCell>
         </Table.Head>
         {products.map((e, index) => (
           <Table.Body key={e.id} className={`bg-white ${index % 2 === 0 ? 'even' : 'odd'}`}>
@@ -39,9 +54,14 @@ function Component() {
                 <img src={e.thumbnail} />
               </Table.Cell>
               <Table.Cell>
-                <Link to={`/admin/edit/${e.id}`} className='btn btn-update'>
-                  Update
-                </Link>{' '}
+                <div className='btn-container'>
+                  <Link to={`/admin/edit/${e.id}`} className='btn btn-update'>
+                    Update
+                  </Link>{' '}
+                  <button onClick={() => handleDelete(e.id)} className='btn btn-delete'>
+                    Delete
+                  </button>{' '}
+                </div>
               </Table.Cell>
             </Table.Row>
           </Table.Body>

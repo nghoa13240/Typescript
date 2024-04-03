@@ -4,14 +4,12 @@
   padding: 20px;
 }
 
-/* Điều chỉnh phần tử h2 */
 h2 {
-  font-size: 24px; /* Kích thước font */
-  font-weight: bold; /* Đậm */
-  margin-bottom: 20px; /* Khoảng cách dưới */
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
-/* Các quy tắc CSS khác */
 .form-group {
   margin-bottom: 20px;
 }
@@ -35,12 +33,12 @@ h2 {
   margin-top: 5px;
 }
 .btn-primary {
-  background-color: #41c9e2; /* Màu nền */
+  background-color: #41c9e2;
   color: #fff;
-  padding: 10px 30px; /* Kích thước nút */
+  padding: 10px 30px;
   border-radius: 4px;
-  font-size: 30px; /* Kích thước font */
-  transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+  font-size: 30px;
+  transition: background-color 0.3s ease;
 }
 .btn-primary:hover {
   background-color: #0056b3;
